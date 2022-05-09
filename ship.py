@@ -32,10 +32,11 @@ class Ship():
         if self.moving_left and self.rect.left > 0: #check if left edge met
             self.center -= self.ai_setting.ship_speed_factor
 
-        if self.moving_up:
+        if self.moving_up and self.rect.right > self.screen_rect.top:
             self.rect.centery -= self.ai_setting.ship_speed_factor
 
-        if self.moving_down:
+        if self.moving_down and self.rect.right < self.screen_rect.bottom:
+       
             self.rect.centery += self.ai_setting.ship_speed_factor
 
 
