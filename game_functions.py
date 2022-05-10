@@ -1,8 +1,9 @@
 import sys
 import pygame
+from bullet import Bullet
 
 
-def check_events(ship):
+def check_events(ai_settings,screen,ship,bullet):
 
     """Keyboard and mouse event"""
     for event in pygame.event.get():
@@ -10,13 +11,14 @@ def check_events(ship):
             sys.exit()
 
         elif event.type == pygame.KEYDOWN:
-            check_keydown_event(event, ship)
+            check_keydown_event(event, ai_settings, screen,ship,bullet)
+        
 
         elif event.type == pygame.KEYUP:
             check_keyup_event(event, ship)
 
 
-def check_keydown_event(event,ship):
+def check_keydown_event(event,ai_setting,screen, ship,bullets):
     if event.key == pygame.K_RIGHT:
         ship.moving_right = True
     elif event.key == pygame.K_LEFT:
@@ -25,6 +27,11 @@ def check_keydown_event(event,ship):
         ship.moving_up = True
     elif event.key == pygame.K_DOWN:
         ship.moving_down = True
+    elif event.key == pygame.K_SPACE:
+        #Create a new bullet and add it to bullet groups 
+        new_bullet = Bullet(ai_setting,screen,ship)
+        bullets.add(new_bullet)
+
 
 
 def check_keyup_event(event,ship):
@@ -41,11 +48,16 @@ def check_keyup_event(event,ship):
 
 
 
-def update_screen(ai_settings,screen,ship):
+def update_screen(ai_settings,screen,ship,bullets):
     """ Update images on the screen and flip to the new screen """
 
     screen.fill(ai_settings.bg_colour)  # Keep redrawing screen
+
+    for bullet in bullets.sprites():
+        bullet.draw_bullet()
+
     ship.blitme()
     pygame.display.flip()  # Most recently drawn screen visible
+
 
 
