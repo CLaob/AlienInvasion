@@ -40,7 +40,9 @@ def check_keyup_event(event,ship):
         ship.moving_up = False
     elif event.key == pygame.K_DOWN:
         ship.moving_down = False
-
+    elif event.key == pygame.K_q:
+        sys.exit()
+        
 
 def update_screen(ai_settings, screen, ship, bullets):
     """ Update images on the screen and flip to the new screen """

@@ -19,7 +19,6 @@ class Ship():
         self.moving_up = False
         self.moving_down = False
 
-
     def blitme(self):
         """ Draw the ship at its current location """
         self.screen.blit(self.image, self.rect)
@@ -35,7 +34,7 @@ class Ship():
         if self.moving_up and self.rect.centery > self.screen_rect.top: #check if top edge met 
             self.rect.centery -= self.ai_setting.ship_speed_factor
 
-        if self.moving_down and self.rect.centery > self.screen_rect.bottom: #check if bottom edge met 
+        if self.moving_down and self.rect.centery < self.screen_rect.bottom: #check if bottom edge met
        
             self.rect.centery += self.ai_setting.ship_speed_factor
 
