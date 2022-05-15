@@ -1,38 +1,37 @@
 import pygame
-from pygame.sprite import Sprite 
+from pygame.sprite import Sprite
 
 class Bullet(Sprite):
-    """A class to manage bullets fired from the ship"""
+    """ A class to manage bullets fired from the ship """
 
-    def __innit__(self, ai_settings, screen, ship):
+    def __init__(self, ai_settings, screen, ship):
         """Create a bullet object at the ship's current position"""
-        super(Bullet,self).__init__
-        self.screen= screen
+        super(Bullet, self).__init__()
+        self.screen = screen
 
-        # Create a bullet rect 
-        self.rect = pygame.Rect(0,0,ai_settings.bullet_width, ai_settings.bullet_height) 
-        self.rect.centerx = ship.rect.centerxx
+        # Create a bullet rect at (0,0) and then set correct position.
+        self.rect = pygame.Rect(0, 0, ai_settings.bullet_width, ai_settings.bullet_height)
+        self.rect.centerx = ship.rect.centerx
         self.rect.top = ship.rect.top
 
-        # Store bullet's position as decimal value 
+        # Store bullet postion as decimal
         self.y = float(self.rect.y)
 
-        # Set color 
-        self.colour = ai_settings.bullet.colour
-
-        # Set Speed
-        self.speed_factor = ai_settings.bullet_speed_factor 
+        self.color = ai_settings.bullet_width
+        self.speed_factor = ai_settings.bullet_speed_factor
 
 
     def update(self):
-        """Move the bullet up the screen"""
+        """ move the bullet up the screen. """
+        # Update the decimal position of the bullet
+        self.y -= self.speed_factor  # bullet fired decrease y position of movement going up
 
-        #Update decimal position of the bullet 
-        self.y -= self.speed_factor
-        #Update rect position 
-        self.rect.y = self.y 
+        # Update rect position
+        self.rect.y = self.y  # update the current position opf the bullet
 
     def draw_bullet(self):
-        """draw bullet on the screen"""
-        pygame.draw.rect(self.screen,self.colour,self.rect)
-        
+        """ Draw Bullet on the screen """
+        pygame.draw.rect(self.screen, self.color, self.rect)
+
+
+
