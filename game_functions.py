@@ -65,13 +65,16 @@ def fire_bullet(ai_settings, screen, ship, bullets):
         bullets.add(new_bullet)
 
 
-def update_bullets(bullets):
+def update_bullets(aliens,bullets):
     """update positions of bullets and get rid of old bullets"""
     bullets.update()
 
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
+
+    # Check for any hit aliens with bullet
+    collisions = pygame.sprite.groupcollide(bullets,aliens,True,True)
 
 
 def get_number_of_rows(ai_settings,ship_height,alien_height):
@@ -89,7 +92,7 @@ def get_number_aliens(ai_settings, alien_width):
 
 
 def create_alien(ai_settings, screen, aliens, alien_number, row_number):
-    """Create alien nd place it in row"""
+    """Create alien and place it in row"""
     alien = Alien(ai_settings, screen)
     alien_width = alien.rect.width
     alien.x = alien_width + 2 * alien_width * alien_number
